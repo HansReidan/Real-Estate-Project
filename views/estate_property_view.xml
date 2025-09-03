@@ -22,6 +22,7 @@
                 <field name="garden_area"/>
                 <field name="garden_orientation"/>
                 <field name="active"/>
+                <field name="state"/>
             </list>
         </field>
     </record>
@@ -32,32 +33,64 @@
         <field name="arch" type="xml">
             <form string="Immobili">
                 <!-- group e sheet modificano la disposizione -->
-                <group>
-                    <field name="name"/>
-                    <field name="description"/>
-                    <field name="postcode"/>
-                    <field name="date_availability"/>
-                </group>
-                <group>
+                <sheet>
+                    <h1>
+                        <field name="name"/>
+                    </h1>
                     <group>
-                        <field name="expected_price"/>
-                        <field name="selling_price"/>
-                        <field name="bedrooms"/>
-                        <field name="living_area"/>
-                        <field name="facades"/>
-                        <field name="garage"/>
-                        <field name="garden"/>
-                        <field name="garden_area"/>
-                        <field name="garden_orientation"/>
-                        <field name="active"/>
+                        <group>
+                            <field name="postcode"/>
+                            <field name="date_availability"/>
+                        </group>
+                        <group>
+                            <field name="expected_price"/>
+                            <field name="selling_price"/>
+                        </group>
                     </group>
-                    <!-- placeholder, help -->
-                    <group>
-                        <field name="address_html"/>
-                    </group>
-                </group>
-                <chatter/> <!-- Semplificato -->
+                    <notebook>
+                        <page string="Informazioni">
+                            <group>
+                                <group>
+                                    <field name="description"/>
+                                    <field name="bedrooms"/>
+                                    <field name="living_area"/>
+                                    <field name="facades"/>
+                                    <field name="garage"/>
+                                </group>
+                                <group>
+                                    <field name="garden"/>
+                                    <field name="garden_area"/>
+                                    <field name="garden_orientation"/>
+                                    <field name="active"/>
+                                    <!-- placeholder, help -->
+                                    <field name="state"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/><!-- Semplificato -->
             </form>
+        </field>
+    </record>
+
+    <record id="ricerca_immobile_form" model="ir.ui.view">
+        <field name="name">estate.property.ricerca</field>
+        <field name="model">estate.property</field>
+        <field name="arch" type="xml">
+            <search string="Tests">
+                <field name="postcode"/> <!-- case sensitive -->
+                <field name="expected_price"/>
+                <field name="bedrooms"/>
+                <field name="living_area"/>
+                <field name="facades"/>
+                <filter string="Nuova" name="state_check" domain="[('state', '=', 'nuova')]"/>
+                <filter string="Offerte Ricevute" name="state_check" domain="[('state', '=', 'offerta ricevuta')]"/>
+                <!-- Se qui metto un <separator/> l'operazione diventa una AND, non più OR -->
+                <group expand="1" string="Raggruppa per">
+                    <filter string="CAP" name="raggruppa_per" context="{'group_by' : 'postcode'}"/>
+                </group>
+            </search>
         </field>
     </record>
 

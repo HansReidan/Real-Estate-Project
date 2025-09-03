@@ -14,15 +14,21 @@ class EstateProprety(models.Model):
 
     name = fields.Char(string="Nome Immobile", required=True)
     description = fields.Text()
-    postcode = fields.Char()
+    postcode = fields.Char(string="CAP")
     date_availability = fields.Date(default=fields.Date.add(today, months=3))
-    expected_price = fields.Float(required=True)
-    selling_price = fields.Float(readonly=True)
-    bedrooms = fields.Integer(default=2)
-    living_area = fields.Integer()
-    facades = fields.Integer()
+    expected_price = fields.Float(string="Prezzo previsto", required=True)
+    selling_price = fields.Float(string="Prezzo vendita", readonly=True)
+    bedrooms = fields.Integer(string="Camere da letto", default=2)
+    living_area = fields.Integer(string="Saloni")
+    facades = fields.Integer(string="Facciate")
     garage = fields.Boolean()
-    garden = fields.Boolean()
-    garden_area = fields.Integer()
+    garden = fields.Boolean(string="Giardino")
+    garden_area = fields.Integer(string="Area giardino")
     garden_orientation = fields.Selection([('nord', 'Nord'), ('sud', 'Sud'), ('est', 'Est'), ('ovest', 'Ovest')])
-    active = fields.Boolean(default=True)
+    active = fields.Boolean(string="Attivo", default=True)
+    state = fields.Selection([('nuova', 'Nuova'), ('offerta ricevuta', 'Offerta Ricevuta'),
+                              ('offerta accettata', 'Offerta Accettata'), ('venduta', 'Venduta'),
+                              ('cancellata', 'Cancellata')])
+
+    # DOMAIN ---> [('model_id', 'operator', 'value')]
+    # '|' '&' '!' or, and, not
