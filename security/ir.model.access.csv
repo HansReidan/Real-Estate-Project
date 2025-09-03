@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_agenzia_immobiliare,access.estate.property,model_estate_property,base.group_user,1,0,0,0
+access_agenzia_immobiliare_segretario,access_segretario.estate.property,model_estate_property,Real-Estate-Project.group_segretario_agenzia,1,0,0,0
+access_agenzia_immobiliare_agente,access_agente.estate.property,model_estate_property,Real-Estate-Project.group_agente_agenzia,1,1,1,0
+access_agenzia_immobiliare_gestore,access_gestore.estate.property,model_estate_property,Real-Estate-Project.group_gestore_agenzia,1,1,1,1

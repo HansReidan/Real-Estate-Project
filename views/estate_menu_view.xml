@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <menuitem id="estate_menu" name="Agenzia" web_icon="Real-Estate-Project,static/description/agenzia.png"/>
+
+    <menuitem id="pagina_agenzia" name="Proprietà" parent="estate_menu"/>
+
+    <menuitem id="inserisci_immobile" name="Inserisci Immobile" parent="pagina_agenzia" action="crea_immobile_action"/>
+</odoo>
