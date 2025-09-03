@@ -31,14 +31,15 @@
         <field name="model">estate.property</field>
         <field name="arch" type="xml">
             <form string="Immobili">
-                <sheet> <!-- group e sheet modificano la disposizione -->
+                <!-- group e sheet modificano la disposizione -->
+                <group>
+                    <field name="name"/>
+                    <field name="description"/>
+                    <field name="postcode"/>
+                    <field name="date_availability"/>
+                </group>
+                <group>
                     <group>
-                        <field name="name"/>
-                        <field name="description"/>
-                        <field name="postcode"/>
-                    </group>
-                    <group>
-                        <field name="date_availability"/>
                         <field name="expected_price"/>
                         <field name="selling_price"/>
                         <field name="bedrooms"/>
@@ -48,9 +49,13 @@
                         <field name="garden"/>
                         <field name="garden_area"/>
                         <field name="garden_orientation"/>
-                        <field name="actie"/>
+                        <field name="active"/>
                     </group>
-                </sheet>
+                    <!-- placeholder, help -->
+                    <group>
+                        <field name="address_html"/>
+                    </group>
+                </group>
                 <chatter/> <!-- Semplificato -->
             </form>
         </field>

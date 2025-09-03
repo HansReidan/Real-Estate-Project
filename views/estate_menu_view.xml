@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-    <menuitem id="estate_menu" name="Agenzia" web_icon="Real-Estate-Project,static/description/agenzia.png"/>
+    <menuitem id="estate_menu" name="Agenzia Imm." web_icon="custom_addons/Real-Estate-Project/static/description/agenzia.png"/>
 
     <menuitem id="pagina_agenzia" name="Proprietà" parent="estate_menu"/>
 
