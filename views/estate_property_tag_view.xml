@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- LIST -->
+        <record id="tag_proprieta_list" model="ir.ui.view">
+            <field name="name">estate.property.tag.list</field>
+            <field name="model">estate.property.tag</field>
+            <field name="arch" type="xml">
+                <list string="Tag">
+                    <field name="name"/>
+                </list>
+            </field>
+        </record>
+
+        <!-- FORM -->
+        <record id="tag_proprieta_form" model="ir.ui.view">
+            <field name="name">estate.property.tag.form</field>
+            <field name="model">estate.property.tag</field>
+            <field name="arch" type="xml">
+                <form string="Tag">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- ACTION -->
+        <record id="tag_proprieta_action" model="ir.actions.act_window">
+            <field name="name">Inserisci Tag Proprietà</field>
+            <field name="res_model">estate.property.tag</field>
+            <field name="view_mode">list,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Inserisci Tag.
+                </p>
+            </field>
+        </record>
+</odoo>

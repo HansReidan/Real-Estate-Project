@@ -8,8 +8,7 @@
             <field name="model">estate.property.type</field>
             <field name="arch" type="xml">
                 <list string="Immobili">
-                    <field name="name"/>
-                    <field name="property_type_id"/>
+                    <field name="property_type"/>
                 </list>
             </field>
         </record>
@@ -22,8 +21,7 @@
                 <form string="Proprietà">
                     <sheet>
                         <group>
-                            <field name="name"/>
-                            <field name="property_type_id"/>
+                            <field name="property_type"/>
                         </group>
                     </sheet>
                 </form>

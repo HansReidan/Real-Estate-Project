@@ -1,5 +1,3 @@
-from email.policy import default
-
 from odoo import api, fields, models
 
 class EstateProprety(models.Model):
@@ -9,13 +7,23 @@ class EstateProprety(models.Model):
 
     today = fields.Date.today()
 
-    # HTML FIELD
+    # The object self.env gives access to request parameters and other useful things:
+    # self.env.cr or self._cr is the database cursor object; it is used for querying the database
+    # self.env.uid or self._uid is the current user’s database id
+    # self.env.user is the current user’s record
+    # self.env.context or self._context is the context dictionary
+    # self.env.ref(xml_id) returns the record corresponding to an XML id
+    # self.env[model_name] returns an instance of the given model
+
     address_html = fields.Html(string='Address HTML')
+
+    user_id = fields.Many2one('res.users', string='Venditore', required=True, default=lambda self: self.env.user)
+    partner_id = fields.Many2one('res.partner', string='Compratore', required=True)
+    property_type_id = fields.Many2one('estate.property.type', string='Tipo', required=True)
+    property_tag_ids = fields.Many2many('estate.property.tag', string='', required=True)
 
     name = fields.Char(string="Nome Immobile", required=True)
     description = fields.Text()
-    property_type = fields.Selection([('casa', 'Casa'), ('appartamento', 'Appartamento'),
-                                      ('villa', 'Villa'), ('castello', 'Castello')])
     postcode = fields.Char(string="CAP")
     date_availability = fields.Date(default=fields.Date.add(today, months=3))
     expected_price = fields.Float(string="Prezzo previsto", required=True)
