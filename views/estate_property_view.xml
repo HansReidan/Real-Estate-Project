@@ -79,6 +79,11 @@
                                 <field name="partner_id"/>
                             </group>
                         </page>
+                        <page string="Offerte">
+                            <group>
+                                <field name="offer_ids"/>
+                            </group>
+                        </page>
                     </notebook>
                 </sheet>
                 <chatter/><!-- Semplificato -->

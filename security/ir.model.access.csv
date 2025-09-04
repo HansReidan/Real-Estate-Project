@@ -15,3 +15,8 @@ access_tipo_proprieta_gestore,access_gestore.estate.property.type,model_estate_p
 access_tag_proprieta_segretario,access_segretario.estate.property.tag,model_estate_property_tag,Real_Estate_Project.group_segretario_agenzia,1,0,0,0
 access_tag_proprieta_agente,access_agente.estate.property.tag,model_estate_property_tag,Real_Estate_Project.group_agente_agenzia,1,1,1,0
 access_tag_proprieta_gestore,access_gestore.estate.property.tag,model_estate_property_tag,Real_Estate_Project.group_gestore_agenzia,1,1,1,1
+
+
+access_offerte_proprieta_segretario,access_segretario.estate.property.offers,model_estate_property_offers,Real_Estate_Project.group_segretario_agenzia,1,0,0,0
+access_offerte_proprieta_agente,access_agente.estate.property.offers,model_estate_property_offers,Real_Estate_Project.group_agente_agenzia,1,1,1,0
+access_offerte_proprieta_gestore,access_gestore.estate.property.offers,model_estate_property_offers,Real_Estate_Project.group_gestore_agenzia,1,1,1,1
