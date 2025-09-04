@@ -23,6 +23,11 @@ class EstateProprety(models.Model):
     property_tag_ids = fields.Many2many('estate.property.tag', string='', required=True)
     offer_ids = fields.One2many('estate.property.offers', 'property_id', string='', required=True)
 
+    total_area = fields.Float(string='Total area', digits=0, readonly=True, compute='_compute_totalArea')
+    # SERVE ER COMPUTE PER LE DEF IN PYTHON
+
+    best_offer = fields.Float(string='Miglior Offerta', digits=0, readonly=True, compute='_compute_bestOffer')
+
     name = fields.Char(string="Nome Immobile", required=True)
     description = fields.Text()
     postcode = fields.Char(string="CAP")
@@ -30,7 +35,7 @@ class EstateProprety(models.Model):
     expected_price = fields.Float(string="Prezzo previsto", required=True)
     selling_price = fields.Float(string="Prezzo vendita", readonly=True)
     bedrooms = fields.Integer(string="Camere da letto", default=2)
-    living_area = fields.Integer(string="Saloni")
+    living_area = fields.Integer(string="Grandezza (mq)")
     facades = fields.Integer(string="Facciate")
     garage = fields.Boolean()
     garden = fields.Boolean(string="Giardino")
@@ -43,3 +48,14 @@ class EstateProprety(models.Model):
 
     # DOMAIN ---> [('model_id', 'operator', 'value')]
     # '|' '&' '!' or, and, not
+
+    @api.depends('living_area', 'garden_area')
+    def _compute_totalArea(self):
+        for rec in self:
+            rec.total_area = rec.garden_area + rec.living_area
+
+    @api.depends('offer_ids')
+    def _compute_bestOffer(self):
+        for rec in self:
+            temp = rec.offer_ids.mapped('prezzo')
+            rec.best_offer = max(temp) if temp else 0.0
