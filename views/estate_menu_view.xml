@@ -1,8 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-    <menuitem id="estate_menu" name="Agenzia Imm." web_icon="custom_addons/Real-Estate-Project/static/description/agenzia.png"/>
+    <data>
+        <!-- MENU INIZIALE -->
+        <menuitem id="estate_menu" name="Agenzia Imm."
+                  web_icon="custom_addons/Real_Estate_Project/static/description/agenzia.png"/>
 
-    <menuitem id="pagina_agenzia" name="Proprietà" parent="estate_menu"/>
+        <!-- MENU AGENZA IMM. -> PROPRIETA' -> INSERISCI IMMOBILE -->
 
-    <menuitem id="inserisci_immobile" name="Inserisci Immobile" parent="pagina_agenzia" action="crea_immobile_action"/>
+        <menuitem id="pagina_agenzia" name="Proprietà" parent="estate_menu"/>
+
+        <menuitem id="inserisci_immobile" name="Inserisci Immobile" parent="pagina_agenzia" action="crea_immobile_action"/>
+
+        <!-- MENU AGENZA IMM. -> IMPOSTAZIONI -> TIPI DI PROPRIETÀ -->
+        <menuitem id="impostazioni_immobile" name="Impostazioni" parent="estate_menu"/>
+        <!-- MANCA ACTION! -->
+        <menuitem id="tipo_proprieta" name="Tipi di Proprietà" parent="impostazioni_immobile" action="tipo_proprieta_action"/>
+
+    </data>
 </odoo>

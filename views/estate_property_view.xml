@@ -10,6 +10,7 @@
             <list string="Immobili">
                 <field name="name"/>
                 <field name="description"/>
+                <field name="property_type"/>
                 <field name="postcode"/>
                 <field name="date_availability"/>
                 <field name="expected_price"/>
@@ -39,6 +40,7 @@
                     </h1>
                     <group>
                         <group>
+                            <field name="property_type"/>
                             <field name="postcode"/>
                             <field name="date_availability"/>
                         </group>
@@ -78,15 +80,16 @@
         <field name="name">estate.property.ricerca</field>
         <field name="model">estate.property</field>
         <field name="arch" type="xml">
-            <search string="Tests">
+            <search string="Tests"> <!-- Cosa voglio ricercare -->
                 <field name="postcode"/> <!-- case sensitive -->
                 <field name="expected_price"/>
                 <field name="bedrooms"/>
                 <field name="living_area"/>
                 <field name="facades"/>
-                <filter string="Nuova" name="state_check" domain="[('state', '=', 'nuova')]"/>
+                <filter string="Nuova" name="state_check" domain="[('state', '=', 'nuova')]"/> <!-- Filtri di ricerca -->
                 <filter string="Offerte Ricevute" name="state_check" domain="[('state', '=', 'offerta ricevuta')]"/>
                 <!-- Se qui metto un <separator/> l'operazione diventa una AND, non più OR -->
+                <!-- DOMAIN [('model_id', 'operator', 'value')] -->
                 <group expand="1" string="Raggruppa per">
                     <filter string="CAP" name="raggruppa_per" context="{'group_by' : 'postcode'}"/>
                 </group>
@@ -98,9 +101,10 @@
         <field name="name">Inserisci Immobile</field>
         <field name="res_model">estate.property</field>
         <field name="view_mode">list,form</field>
+        <field name="view_id" ref="crea_immobile_list"/>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
-                Inserisci Immobile.
+                Nessun tipo di proprietà ancora inserito. Crea uno nuovo!
             </p>
         </field>
     </record>

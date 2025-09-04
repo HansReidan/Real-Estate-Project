@@ -8,22 +8,22 @@
 
         <record id="group_segretario_agenzia" model="res.groups">
             <field name="name">Segretario</field>
-            <field name="category_id" ref="Real-Estate-Project.module_category_agenzia"/>
+            <field name="category_id" ref="Real_Estate_Project.module_category_agenzia"/>
             <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
             <field name="comment">Segretario dell'agenzia, può inserire immobili </field>
         </record>
 
         <record id="group_agente_agenzia" model="res.groups">
             <field name="name">Agente Immobiliare</field>
-            <field name="category_id" ref="Real-Estate-Project.module_category_agenzia"/>
-            <field name="implied_ids" eval="[(4, ref('Real-Estate-Project.group_segretario_agenzia'))]"/>
+            <field name="category_id" ref="Real_Estate_Project.module_category_agenzia"/>
+            <field name="implied_ids" eval="[(4, ref('Real_Estate_Project.group_segretario_agenzia'))]"/>
             <field name="comment">Agente Immobiliare</field>
         </record>
 
         <record id="group_gestore_agenzia" model="res.groups">
             <field name="name">Gestore</field>
-            <field name="category_id" ref="Real-Estate-Project.module_category_agenzia"/>
-            <field name="implied_ids" eval="[(4, ref('Real-Estate-Project.group_agente_agenzia'))]"/>
+            <field name="category_id" ref="Real_Estate_Project.module_category_agenzia"/>
+            <field name="implied_ids" eval="[(4, ref('Real_Estate_Project.group_agente_agenzia'))]"/>
             <field name="comment">Gestore dell'Agenzia</field>
         </record>
     </data>

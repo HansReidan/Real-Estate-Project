@@ -14,6 +14,8 @@ class EstateProprety(models.Model):
 
     name = fields.Char(string="Nome Immobile", required=True)
     description = fields.Text()
+    property_type = fields.Selection([('casa', 'Casa'), ('appartamento', 'Appartamento'),
+                                      ('villa', 'Villa'), ('castello', 'Castello')])
     postcode = fields.Char(string="CAP")
     date_availability = fields.Date(default=fields.Date.add(today, months=3))
     expected_price = fields.Float(string="Prezzo previsto", required=True)
