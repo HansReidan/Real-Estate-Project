@@ -9,12 +9,18 @@ class EstatePropretyOffers(models.Model):
     today = fields.Date.today()
 
     prezzo = fields.Float(string="Prezzo")
-    status = fields.Selection([('rifiutata', 'Rifiutata'), ('accettata', 'Accettata')], nocopy=True)
+    stato = fields.Selection([('rifiutata', 'Rifiutata'), ('accettata', 'Accettata')], nocopy=True)
     partner_id = fields.Many2one('res.partner', string='Compratore', required=True)
     property_id = fields.Many2one('estate.property', string='Proprietà', required=True)
     validita = fields.Integer(string='Validità')
     date_deadline = fields.Date(default=today, string='Deadline', compute='_compute_deadline',
                                 inverse='_inverse_deadline')
+
+    _sql_constraints = [
+        ('expected_prezzo',
+         'CHECK(prezzo > 0)',
+         'Il prezzo dell\'offerta deve essere strettamente positivo.'),
+    ]
 
     @api.depends('validita', 'create_date')
     def _compute_deadline(self):
@@ -45,3 +51,30 @@ class EstatePropretyOffers(models.Model):
             else:
                 # Se date_deadline è vuoto, reset validita
                 rec.validita = 0
+
+    def confirm_offer(self):
+        for rec in self:
+        # Rifiuta tutte le altre offerte per la stessa proprietà
+            altre_offerte = self.search([
+                ('property_id', '=', rec.property_id.id),
+                ('id', '!=', rec.id),
+                ('stato', '=', 'accettata')
+            ])
+            altre_offerte.write({'stato': 'rifiutata'})
+
+            # Imposta stato attuale a 'accettata'
+            rec.stato = 'accettata'
+
+            # Aggiorna la proprietà con compratore e prezzo di vendita
+            rec.property_id.write({
+                'selling_price': rec.prezzo,
+                'partner_id': rec.partner_id.id,
+            })
+
+    def refuse_offer(self):
+        for rec in self:
+            rec.stato = 'rifiutata'
+            rec.property_id.write({
+                'selling_price': 0,
+                'partner_id': rec.partner_id.id,
+            })

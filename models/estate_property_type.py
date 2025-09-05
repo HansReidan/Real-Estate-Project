@@ -1,5 +1,6 @@
 from odoo import api, fields, models
 
+
 class EstatePropretyType(models.Model):
     _name = 'estate.property.type'
     _rec_name = 'property_type'
@@ -7,3 +8,9 @@ class EstatePropretyType(models.Model):
     # di property type
 
     property_type = fields.Char(string='Property Type', required=True)
+
+    _sql_constraints = [
+        ('property_type_name_unique',
+         'UNIQUE(name)',
+         'Il nome del tipo di proprietà deve essere univoco.')
+    ]

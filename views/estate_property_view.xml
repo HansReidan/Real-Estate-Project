@@ -36,6 +36,12 @@
         <field name="model">estate.property</field>
         <field name="arch" type="xml">
             <form string="Immobili">
+                <header>
+                    <button name="action_vendi" type="object" string="Vendi" invisible="state == 'cancellata'"
+                            class="oe_highlight"/>
+                    <button name="action_cancella" type="object" string="Cancella" invisible="state == 'venduta'"
+                            class="oe_highlight"/>
+                </header>
                 <!-- group e sheet modificano la disposizione -->
                 <sheet>
                     <h1>

@@ -1,4 +1,5 @@
 from odoo import api, fields, models
+from odoo.exceptions import ValidationError
 
 class EstateProprety(models.Model):
     _name = 'estate.property'
@@ -44,10 +45,27 @@ class EstateProprety(models.Model):
     active = fields.Boolean(string="Attivo", default=True)
     state = fields.Selection([('nuova', 'Nuova'), ('offerta ricevuta', 'Offerta Ricevuta'),
                               ('offerta accettata', 'Offerta Accettata'), ('venduta', 'Venduta'),
-                              ('cancellata', 'Cancellata')])
+                              ('cancellata', 'Cancellata')], tracking=True, readonly=True)
+
+    _sql_constraints = [
+        ('expected_price_positive',
+         'CHECK(expected_price > 0)',
+         'Il prezzo atteso deve essere strettamente positivo.'),
+        ('selling_price_non_negative',
+         'CHECK(selling_price >= 0)',
+         'Il prezzo di vendita non può essere negativo.')
+    ]
 
     # DOMAIN ---> [('model_id', 'operator', 'value')]
     # '|' '&' '!' or, and, not
+
+    def action_vendi(self):
+        for rec in self:
+            rec.state = 'venduta'
+
+    def action_cancella(self):
+        for rec in self:
+            rec.state = 'cancellata'
 
     @api.depends('living_area', 'garden_area')
     def _compute_totalArea(self):
@@ -59,3 +77,27 @@ class EstateProprety(models.Model):
         for rec in self:
             temp = rec.offer_ids.mapped('prezzo')
             rec.best_offer = max(temp) if temp else 0.0
+
+    @api.onchange('garden')
+    def _onchange_property_type(self):
+            if self.garden:
+                self.garden_area = 10
+                self.garden_orientation = 'nord'
+            else:
+                self.garden_area = 0
+                self.garden_orientation = False
+
+    @api.constrains('selling_price', 'expected_price')
+    def _check_price(self):
+        for rec in self:
+            # Se è impostato un prezzo di vendita
+            if rec.selling_price:
+                min_price = rec.expected_price * 0.9
+                if rec.selling_price < min_price:
+                    raise ValidationError(
+                        "Il prezzo di vendita non può essere inferiore al 90% del prezzo previsto.\n"
+                        f"Prezzo previsto: {rec.expected_price:.2f} → minimo accettato: {min_price:.2f}"
+                    )
+
+
+

@@ -5,3 +5,9 @@ class EstatePropretyTag(models.Model):
     _rec_name = 'name'
 
     name = fields.Char(string='Tag Proprietà')
+
+    _sql_constraints = [
+        ('property_tga_unico',
+         'UNIQUE(name)',
+         'Il nome del tag di proprietà deve essere univoco.')
+    ]
