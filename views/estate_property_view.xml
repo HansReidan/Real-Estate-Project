@@ -91,7 +91,7 @@
                         </page>
                         <page string="Offerte">
                             <group>
-                                <field name="offer_ids"/>
+                                <field name="offer_ids" string=""/>
                             </group>
                         </page>
                     </notebook>
