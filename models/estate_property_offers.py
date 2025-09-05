@@ -7,8 +7,13 @@ class EstatePropretyOffers(models.Model):
     _name = 'estate.property.offers'
     _description = 'Estate Property Offers'
     _order = 'prezzo desc'
+    _rec_name = 'display_name_fake'
+
+    display_name_fake = fields.Char(string='Fake Display Name', compute='_compute_display_name_fake')
 
     today = fields.Date.today()
+
+    niente = fields.Char(string='')
 
     prezzo = fields.Float(string="Prezzo")
     stato = fields.Selection([('rifiutata', 'Rifiutata'), ('accettata', 'Accettata')], nocopy=True)
@@ -80,3 +85,11 @@ class EstatePropretyOffers(models.Model):
                 'selling_price': 0,
                 'partner_id': rec.partner_id.id,
             })
+
+    def _compute_display_name_fake(self):
+        for record in self:
+            record.display_name_fake = ''
+
+    def name_get(self):
+        # Ritorna una stringa vuota per ogni record
+        return [(record.id, '') for record in self]

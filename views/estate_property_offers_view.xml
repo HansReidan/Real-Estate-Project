@@ -19,10 +19,9 @@
     </record>
     <!-- LIST -->
     <record id="offerte_proprietà_list" model="ir.ui.view">
-        <field name="name">estate.property.offers.list</field>
         <field name="model">estate.property.offers</field>
         <field name="arch" type="xml">
-            <list string="Offerte">
+            <list string="Offerte" create="false">
                 <field name="prezzo"/>
                 <field name="partner_id"/>
                 <field name="validita"/>
