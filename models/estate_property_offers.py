@@ -5,6 +5,8 @@ from datetime import datetime
 
 class EstatePropretyOffers(models.Model):
     _name = 'estate.property.offers'
+    _description = 'Estate Property Offers'
+    _order = 'prezzo desc'
 
     today = fields.Date.today()
 

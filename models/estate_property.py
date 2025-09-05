@@ -5,6 +5,7 @@ class EstateProprety(models.Model):
     _name = 'estate.property'
     _description = 'Agenzia Immobiliare'
     _inherit = ['mail.thread']
+    _order = 'id desc'
 
     today = fields.Date.today()
 
@@ -23,8 +24,9 @@ class EstateProprety(models.Model):
     property_type_id = fields.Many2one('estate.property.type', string='Tipo', required=True)
     property_tag_ids = fields.Many2many('estate.property.tag', string='', required=True)
     offer_ids = fields.One2many('estate.property.offers', 'property_id', string='', required=True)
+    sequence = fields.Integer(':', default=1)
 
-    total_area = fields.Float(string='Total area', digits=0, readonly=True, compute='_compute_totalArea')
+    total_area = fields.Float(string='Area Totale', digits=0, readonly=True, compute='_compute_totalArea')
     # SERVE ER COMPUTE PER LE DEF IN PYTHON
 
     best_offer = fields.Float(string='Miglior Offerta', digits=0, readonly=True, compute='_compute_bestOffer')
